@@ -13,6 +13,11 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+/*
+* EventBus3.0 如果没有接收到消息，则换一个高版本的手机测试
+* 在Android 4.0手机上收不到post来的消息，在Android 7.0手机
+* 上就能收到消息。
+* */
 public class MainActivity extends AppCompatActivity {
     private Button mButton;
     private TextView mText;
@@ -27,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d("TAG","---->>>One onCreate");
     }
     private void swichActivity() {
+        if(!EventBus.getDefault().isRegistered(MainActivity.this)){
+            EventBus.getDefault().register(this);
+        }
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,27 +43,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     protected void onStart() {
         super.onStart();
         Log.d("TAG","---->>>One onStart");
-        EventBus.getDefault().register(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         Log.d("TAG","---->>>One onResume()");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-//    @Subscribe(sticky = true)
-    public void onEvent(MessageEvent messageEvent){
-        mText.setText(messageEvent.getMessage());
-        Log.d("TAG","---->>>One  Event");
-        Toast.makeText(MainActivity.this, messageEvent.getMessage(), Toast.LENGTH_SHORT).show();
+    public void onMoonEvent(MessageEvent messageEvent){
+        Log.d("TAG","---->>>onMoonEvent()");
+        mText.setText("接收："+messageEvent.getMessage());
     }
 
     @Override

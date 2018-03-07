@@ -6,6 +6,7 @@ package com.ljt.eventbustest;
 
 public class MessageEvent {
     private String message;
+
     public  MessageEvent(String message){
         this.message=message;
     }

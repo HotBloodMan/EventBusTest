@@ -1,5 +1,6 @@
 package com.ljt.eventbustest;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,8 @@ public class SecondActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EventBus.getDefault().post(new MessageEvent("Hello World SecondActivity"));
                 finish();
+//                Intent intent = new Intent(SecondActivity.this, MainActivity.class);
+//                startActivity(intent);
                 Log.d("TAG","---->>>Second");
             }
         });
