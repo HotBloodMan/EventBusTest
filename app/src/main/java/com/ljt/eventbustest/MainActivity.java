@@ -61,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         mText.setText("接收："+messageEvent.getMessage());
     }
 
+    @Subscribe(sticky = true)
+    public void ononMoonStickyEvent(MessageEvent messageEvent){
+        mText.setText(messageEvent.getMessage());
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

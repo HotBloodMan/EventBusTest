@@ -11,11 +11,21 @@ import org.greenrobot.eventbus.EventBus;
 
 public class SecondActivity extends AppCompatActivity {
     Button btnSecond;
+    private Button btnThird;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         btnSecond= (Button) findViewById(R.id.btn_second);
+        btnThird = (Button) findViewById(R.id.btn_third);
+        btnThird.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().postSticky(new MessageEvent("粘性事件"));
+                finish();
+            }
+        });
         jumpActivity();
     }
 
